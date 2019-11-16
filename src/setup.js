@@ -35,7 +35,6 @@ function setup() {
         }
       }
     }
-
     balls.push(new Ball(pos.x, pos.y, r));
   }
 }
@@ -61,6 +60,20 @@ function setupSolarSystem(index) {
     ball.velocity = b.v;
     balls.push(ball);
   });
+}
+
+function reset() {
+  if (solarSystemMode) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    balls = [];
+    attractors = [];
+    setupSolarSystem(0);
+  } else {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    balls = [];
+    attractors = [];
+    setup();
+  }
 }
 
 function saveCurrentPos() {

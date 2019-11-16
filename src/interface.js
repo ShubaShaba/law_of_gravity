@@ -36,10 +36,10 @@ addEventListener("keypress", event => {
     processOnGoing = true;
   }
 
-  if (event.key === "a" && onMouseAttraction) {
-    onMouseAttraction = false;
+  if (event.key === "a" && attraction) {
+    attraction = false;
   } else if (event.key === "a") {
-    onMouseAttraction = true;
+    attraction = true;
   }
 
   if (event.key === "c" && onMouseColoring) {
@@ -51,8 +51,35 @@ addEventListener("keypress", event => {
   if (event.key === "d" && tracingMode) {
     backToCurrentPos();
     tracingMode = false;
-  } else if (event.key === "d") {
+  } else if (event.key === "d" && !display) {
     saveCurrentPos();
     tracingMode = true;
+  }
+
+  if (event.key === "r" && solarSystemMode) {
+    solarSystemMode = false;
+    reset();
+  } else if (event.key === "r") {
+    solarSystemMode = true;
+    reset();
+  }
+
+  if (event.key === "g" && display) {
+    display = false;
+  } else if (event.key === "g" && !tracingMode) {
+    display = true;
+  }
+});
+
+addEventListener("keydown", event => {
+  if (event.key === "m") {
+    attractors.forEach(e => {
+      e.massChange(true);
+    });
+  }
+  if (event.key === "l") {
+    attractors.forEach(e => {
+      e.massChange(false);
+    });
   }
 });

@@ -25,6 +25,7 @@ function animation() {
     ball.move();
     ball.draw();
     ball.coloring();
+    ball.dispaling();
   });
 
   requestAnimationFrame(animation);

@@ -57,6 +57,7 @@ class Attractor {
     this.mass = attractorMass;
     this.color = "white";
     this.oppacity = 0.35;
+    this.massDelta = Math.pow(10, 5);
     this.keypress;
 
     this.move = function() {
@@ -82,7 +83,7 @@ class Attractor {
     };
 
     this.attracting = function() {
-      if ((onMouseAttraction && this.keypress) || !onMouseAttraction) {
+      if (!attraction) {
         for (let i = 0; i < balls.length; i++) {
           let ball = balls[i];
           let distance = ball.pos.distance(this.pos);
@@ -97,6 +98,14 @@ class Attractor {
               .multiply(force)
           );
         }
+      }
+    };
+
+    this.massChange = function(direction) {
+      if (direction) {
+        this.mass += this.massDelta;
+      } else if (!direction) {
+        this.mass -= this.massDelta;
       }
     };
 
@@ -121,7 +130,7 @@ class Ball {
     this.r = r;
     this.color = colors[Math.floor(Math.random() * colors.length)];
     this.velocity = new Vector(1, 0);
-    this.mass = r === 30 ? attractorMass : attractorMass / 2;
+    this.mass = ballMass;
     this.oppacity = 0.35;
     this.keypress;
 
@@ -172,6 +181,23 @@ class Ball {
         ctx.strokeStyle = this.color;
         ctx.stroke();
         ctx.closePath();
+      }
+    };
+
+    this.dispaling = function() {
+      if (display) {
+        ctx.fillStyle = "white";
+        ctx.font = "10px Monospace";
+        ctx.fillText(
+          `V : (${this.velocity.x}, ${this.velocity.x},)`,
+          this.pos.x,
+          this.pos.y
+        );
+        ctx.fillText(
+          `Pos : (${this.pos.x}, ${this.pos.x},)`,
+          this.pos.x,
+          this.pos.y + 10
+        );
       }
     };
   }
